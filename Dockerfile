@@ -1,7 +1,5 @@
-FROM python:2.7-slim
-WORKDIR /app
-ADD . /app
-RUN pip install -r requirements.txt
-EXPOSE 80
-ENV NAME World
-CMD ["python", "app.py"]
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ADD target/gs-spring-boot-docker-0.1.0.jar app.jar
+ENV JAVA_OPTS=""
+ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
