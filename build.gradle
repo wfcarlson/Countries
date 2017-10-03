@@ -41,4 +41,11 @@ task buildDocker(type: Docker, dependsOn: build) {
       into "${stageDir}/target"
     }
   }
+
+  doLast {
+    copy {
+      from jar
+      into "${projectDir}/target"
+    }
+  }
 }

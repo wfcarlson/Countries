@@ -24,7 +24,7 @@ public class CountryController {
 
         Country us = new Country(counter1.incrementAndGet(), "US", "United States");
         Country can = new Country(counter1.incrementAndGet(), "CA", "Canada");
-        Country mex = new Country(counter1.incrementAndGet(), "MX", "Mexico");
+        Country mex = new Country(counter1.incrementAndGet(), "MO", "Mexico");
 
         State va = new State(counter2.incrementAndGet(), "VA", "Virginia", us);
         State ma = new State(counter2.incrementAndGet(), "MA", "Maine", us);
