@@ -1,13 +1,19 @@
 package countries;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Country {
 
-    private final long id;
-    private final String code;
-    private final String name;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private String code;
+    private String name;
 
-    public Country(long id, String code, String name){
-        this.id = id;
+    public Country(String code, String name){
         this.code = code;
         this.name = name;
     }

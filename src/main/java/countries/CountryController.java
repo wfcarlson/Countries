@@ -4,6 +4,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +15,7 @@ import java.util.List;
 import countries.Country;
 import countries.State;
 
+@RequestMapping("/countries")
 @RestController
 public class CountryController {
 
@@ -22,9 +27,9 @@ public class CountryController {
 
     public CountryController() {
 
-        Country us = new Country(counter1.incrementAndGet(), "US", "United States");
-        Country can = new Country(counter1.incrementAndGet(), "CA", "Canada");
-        Country mex = new Country(counter1.incrementAndGet(), "MO", "Mexico");
+        Country us = new Country( "US", "United States");
+        Country can = new Country( "CA", "Canada");
+        Country mex = new Country("MX", "Mexico");
 
         State va = new State(counter2.incrementAndGet(), "VA", "Virginia", us);
         State ma = new State(counter2.incrementAndGet(), "MA", "Maine", us);
@@ -49,8 +54,13 @@ public class CountryController {
 
     }
 
-    @RequestMapping("/countries")
+    @RequestMapping(method = RequestMethod.GET)
     public List<Country> getCountries() {
         return this.countries;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{countryCode}")
+    public List<State> getStates(@PathVariable String countryCode){
+        return this.states;
     }
 }
