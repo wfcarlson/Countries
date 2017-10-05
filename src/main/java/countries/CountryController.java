@@ -19,24 +19,21 @@ import countries.State;
 @RestController
 public class CountryController {
 
-    private final AtomicLong counter1 = new AtomicLong();
-    private final AtomicLong counter2 = new AtomicLong();
-
     private List<Country> countries;
     private List<State> states;
 
     public CountryController() {
 
-        Country us = new Country( "US", "United States");
-        Country can = new Country( "CA", "Canada");
+        Country us = new Country("US", "United States");
+        Country can = new Country("CA", "Canada");
         Country mex = new Country("MX", "Mexico");
 
-        State va = new State(counter2.incrementAndGet(), "VA", "Virginia", us);
-        State ma = new State(counter2.incrementAndGet(), "MA", "Maine", us);
-        State on = new State(counter2.incrementAndGet(), "ON", "Ontario", can);
-        State qu = new State(counter2.incrementAndGet(), "QU", "Quebec", can);
-        State oa = new State(counter2.incrementAndGet(), "OA", "Oaxaca", mex);
-        State bc = new State(counter2.incrementAndGet(), "BC", "Baja California", mex);
+        State va = new State("VA", "Virginia", us);
+        State ma = new State("MA", "Maine", us);
+        State on = new State("ON", "Ontario", can);
+        State qu = new State("QU", "Quebec", can);
+        State oa = new State("OA", "Oaxaca", mex);
+        State bc = new State("BC", "Baja California", mex);
 
         this.countries = new ArrayList<Country>(3);
         this.states = new ArrayList<State>(6);
