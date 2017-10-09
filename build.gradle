@@ -38,20 +38,15 @@ dependencies {
 }
 
 
-task buildDocker(type: Docker, dependsOn: build) {
-  applicationName = jar.baseName
-  dockerfile = file('Dockerfile')
-  doFirst {
-    copy {
-      from jar
-      into "${stageDir}/target"
+task dockerRestart(){
+    copy{
+        from jar
+        into "${projectDir}/target"
     }
-  }
-
-  doLast {
-    copy {
-      from jar
-      into "${projectDir}/target"
+    exec{
+        executable 'docker-compose'
+        args 'restart', 'api'
     }
-  }
 }
+
+build.finalizedBy(dockerRestart)

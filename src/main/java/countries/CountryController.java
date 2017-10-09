@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.Produces;
+
 
 
 
@@ -52,10 +54,12 @@ public class CountryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @Produces("application/json")
     public List<Country> getCountries() {
         return this.countries;
     }
 
+    @Produces("application/json")
     @RequestMapping(method = RequestMethod.GET, value = "/{countryCode}")
     public List<State> getStates(@PathVariable String countryCode){
         return this.states;
