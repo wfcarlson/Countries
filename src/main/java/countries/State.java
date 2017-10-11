@@ -41,7 +41,5 @@ public class State {
 
     public Country getCountry() {
         return this.country;
-            
-        
     }
 }

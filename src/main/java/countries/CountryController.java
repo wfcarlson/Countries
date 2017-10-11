@@ -1,14 +1,14 @@
 package countries;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collection;
 import java.util.ArrayList;
-import java.util.List;
 
 import countries.Country;
 import countries.State;
@@ -17,8 +17,8 @@ import countries.State;
 @RestController
 public class CountryController {
 
-    private List<Country> countries;
-    private List<State> states;
+    private Collection<Country> countries;
+    private Collection<State> states;
 
     public CountryController() {
 
@@ -50,12 +50,12 @@ public class CountryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Country> getCountries() {
+    public Collection<Country> getCountries() {
         return this.countries;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{countryCode}")
-    public List<State> getStates(@PathVariable String countryCode){
-        return this.states;
+    public Collection<State> getStates(@PathVariable String countryCode){
+        return this.states.stream().filter(p -> p.getCountry().getCode().equals(countryCode)).collect(Collectors.toList());
     }
 }

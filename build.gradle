@@ -38,7 +38,7 @@ dependencies {
 }
 
 
-task dockerRestart(){
+task dockerRestart {
     copy{
         from jar
         into "${projectDir}/target"
@@ -49,4 +49,4 @@ task dockerRestart(){
     }
 }
 
-build.finalizedBy(dockerRestart)
+dockerRestart.dependsOn build

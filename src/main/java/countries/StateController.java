@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import countries.Country;
 import countries.State;
@@ -17,7 +17,7 @@ import countries.State;
 @RestController
 public class StateController {
 
-    private List<State> states;
+    private Collection<State> states;
 
     public StateController() {
 
@@ -44,7 +44,7 @@ public class StateController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<State> getStates() {
+    public Collection<State> getStates() {
         return this.states;
     }
 
