@@ -6,11 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import countries.Country;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class State {
 
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String code;
