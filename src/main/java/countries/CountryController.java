@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Collection;
 import java.util.ArrayList;
@@ -55,8 +56,8 @@ public class CountryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void postCountries() {
-
+    public void postCountries(@RequestBody Country country) {
+        this.countries.add(country);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{countryCode}")
@@ -69,12 +70,12 @@ public class CountryController {
 
     }
 
-    @RequestMethod(method = RequestMethod.PUT, value = "/{countryCode}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/{countryCode}")
     public void putCountry(@PathVariable String countryCode){
 
     }
 
-    @RequestMethod(method = RequestMethod.PATCH, value = "/{countryCode}")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/{countryCode}")
     public void patchCountry(@PathVariable String countryCode){
         
     }
