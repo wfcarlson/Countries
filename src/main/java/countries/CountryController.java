@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Map;
 
 import countries.Country;
 import countries.State;
@@ -18,8 +22,8 @@ import countries.State;
 @RestController
 public class CountryController {
 
-    private Collection<Country> countries;
-    private Collection<State> states;
+    public Collection<Country> countries;
+    public Collection<State> states;
 
     public CountryController() {
 
@@ -51,32 +55,51 @@ public class CountryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Country> getCountries() {
-        return this.countries;
+    public ResponseEntity<Collection<Country>> getCountries() {
+        return new ResponseEntity<Collection<Country>>(this.countries, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void postCountries(@RequestBody Country country) {
+    public ResponseEntity<Country> postCountry(@RequestBody Country country) {
         this.countries.add(country);
+        return new ResponseEntity<Country>(country, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{countryCode}")
-    public Collection<State> getStates(@PathVariable String countryCode){
-        return this.states.stream().filter(p -> p.getCountry().getCode().equals(countryCode)).collect(Collectors.toList());
+    public ResponseEntity<Collection<State>> getStates(@PathVariable String countryCode) {
+        Collection<State> states = this.states.stream().filter(p -> p.getCountry().getCode().equals(countryCode)).collect(Collectors.toList());
+        return new ResponseEntity<Collection<State>>(states, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{countryCode}")
-    public void deleteCountry(@PathVariable String countryCode){
-
+    public ResponseEntity<Country> deleteCountry(@PathVariable String countryCode) {
+        Country country = (Country)this.countries.stream().filter(c -> c.getCode().equals(countryCode)).toArray()[0];
+        this.countries.remove(country);
+        return new ResponseEntity<Country>(country, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{countryCode}")
-    public void putCountry(@PathVariable String countryCode){
+    public ResponseEntity<Country> putCountry(@PathVariable String countryCode, @RequestBody Country updateCountry) {
+        Country country = (Country)this.countries.stream().filter(c -> c.getCode().equals(countryCode)).toArray()[0];
+        this.countries.remove(country);
+        country.setCode(updateCountry.getCode());
+        country.setName(updateCountry.getName());
+        this.countries.add(country);
+        return new ResponseEntity<Country>(country, HttpStatus.OK);
 
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/{countryCode}")
-    public void patchCountry(@PathVariable String countryCode){
-        
+    public ResponseEntity<Country> patchCountry(@PathVariable String countryCode, @RequestBody Map<String, Object> values) {
+        Country country = (Country)this.countries.stream().filter(c -> c.getCode().equals(countryCode)).toArray()[0];
+        this.countries.remove(country);
+        if (values.containsKey("code")) {
+            country.setCode(values.get("code").toString());
+        }
+        if (values.containsKey("name")) {
+            country.setName(values.get("name").toString());
+        }
+        this.countries.add(country);
+        return new ResponseEntity<Country>(country, HttpStatus.OK);
     }
 }

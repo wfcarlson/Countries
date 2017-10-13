@@ -16,24 +16,36 @@ public class Country {
     private String code;
     private String name;
 
-    public Country(String code, String name){
+    public Country(String code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public String getCode(){
+    public Country(){
+        
+    }
+
+    public String getCode() {
         return this.code;
     }
 
-    public String getName(){
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
         return this.name;
     }
 
-    public long getId(){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
         return this.id;
     }
 
-    public String toString(){
+    public String toString() {
         return "Country number " + this.id;
     }
 }

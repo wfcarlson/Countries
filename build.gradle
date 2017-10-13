@@ -48,5 +48,3 @@ task dockerRestart {
         args 'restart', 'api'
     }
 }
-
-build.dependsOn dockerRestart
