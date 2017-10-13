@@ -54,8 +54,28 @@ public class CountryController {
         return this.countries;
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public void postCountries() {
+
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/{countryCode}")
     public Collection<State> getStates(@PathVariable String countryCode){
         return this.states.stream().filter(p -> p.getCountry().getCode().equals(countryCode)).collect(Collectors.toList());
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{countryCode}")
+    public void deleteCountry(@PathVariable String countryCode){
+
+    }
+
+    @RequestMethod(method = RequestMethod.PUT, value = "/{countryCode}")
+    public void putCountry(@PathVariable String countryCode){
+
+    }
+
+    @RequestMethod(method = RequestMethod.PATCH, value = "/{countryCode}")
+    public void patchCountry(@PathVariable String countryCode){
+        
     }
 }

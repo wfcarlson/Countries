@@ -49,4 +49,4 @@ task dockerRestart {
     }
 }
 
-dockerRestart.dependsOn build
+build.dependsOn dockerRestart
